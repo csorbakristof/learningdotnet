@@ -1,3 +1,0 @@
-﻿Used tutorial at
-https://ilclubdellesei.wordpress.com/2017/06/01/prism-uwp-for-beginners-setup/
-

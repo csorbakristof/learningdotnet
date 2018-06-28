@@ -1,0 +1,2 @@
+﻿Used tutorial:
+https://docs.microsoft.com/hu-hu/windows/uwp/get-started/construct-form-learning-track
