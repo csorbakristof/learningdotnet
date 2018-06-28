@@ -24,14 +24,10 @@ namespace FirstUwpApp.View
 
         private Shape CreateShape()
         {
-            var type = this.Type.SelectedValue as ComboBoxItem;
-            switch (type.Content)
-            {
-                case "Polygon":
-                    return new Rectangle() { Width = 50, Height = 50 };
-                case "Circle":
-                    return new Ellipse() { Width = 50, Height = 50 };
-            }
+            if (this.ShapeIsCircle.IsChecked ?? false)
+                return new Ellipse() { Width = WidthSlider.Value, Height = HeightSlider.Value };
+            else if (this.ShapeIsRectangle.IsChecked ?? false)
+                return new Rectangle() { Width = WidthSlider.Value, Height = HeightSlider.Value };
             return null;
         }
     }

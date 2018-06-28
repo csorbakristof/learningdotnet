@@ -11,16 +11,16 @@
     <Grid>
         <RelativePanel>
             <StackPanel x:Name="ShapeType" Margin="20" BorderThickness="1" BorderBrush="Blue"
-                        RelativePanel.LeftOf="Colors" RelativePanel.AlignLeftWithPanel="True">
-                <ComboBox x:Name="Type" Header="Type of shape" Margin="0,24,0,0" PlaceholderText="shape type">
-                    <ComboBoxItem Name="circle">Circle</ComboBoxItem>
-                    <ComboBoxItem Name="polygon">Polygon</ComboBoxItem>
-                </ComboBox>
-                <TextBox x:Name="Title" Header="Shape title" Margin="0,24,0,0" />
+                        RelativePanel.LeftOf="Colors" RelativePanel.AlignLeftWithPanel="True"
+                        Orientation="Horizontal">
+                <RadioButton x:Name="ShapeIsCircle" Content="Circle" Tag="Circle"/>
+                <RadioButton x:Name="ShapeIsRectangle" Content="Rectangle" Tag="Rectangle"/>
+                <Slider x:Name="WidthSlider" Margin="20" Header="Width" Value="10" Minimum="10" Maximum="100"/>
+                <Slider x:Name="HeightSlider" Orientation="Vertical" Margin="20" Header="Height" Value="10" Minimum="10" Maximum="100"/>
             </StackPanel>
             <StackPanel x:Name="Colors" Margin="20" RelativePanel.AlignRightWithPanel="True"
                         BorderThickness="1" BorderBrush="Blue">
-                <ColorPicker x:Name="Color" Margin="0,24,0,0"/>
+                <ColorPicker x:Name="Color" Margin="0,24,0,0" Color="#CD5CFF"/>
             </StackPanel>
             <StackPanel x:Name="Buttons" Orientation="Horizontal" RelativePanel.Below="ShapeType"
                         RelativePanel.AlignRightWith="ShapeType"
