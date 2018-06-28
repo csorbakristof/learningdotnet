@@ -22,15 +22,10 @@
                         BorderThickness="1" BorderBrush="Blue">
                 <ColorPicker x:Name="Color" Margin="0,24,0,0" Color="#CD5CFF"/>
             </StackPanel>
-            <StackPanel x:Name="Buttons" Orientation="Horizontal" RelativePanel.Below="ShapeType"
-                        RelativePanel.AlignRightWith="ShapeType"
-                        RelativePanel.AlignLeftWithPanel="True"
-                        Margin="20" BorderThickness="1" BorderBrush="Blue">
-                <Button x:Name="CreateShapeButton" Content="Create shape" Click="CreateShapeButton_Click"/>
-            </StackPanel>
             <Canvas x:Name="Canvas" Margin="20" MinWidth="100" MinHeight="100" Background="Gray"
                     RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True"
-                    RelativePanel.LeftOf="Colors" RelativePanel.Below="Buttons"/>
+                    RelativePanel.LeftOf="Colors" RelativePanel.Below="ShapeType"
+                    PointerPressed="Canvas_PointerPressed"/>
         </RelativePanel>
     </Grid>
 </Page>
