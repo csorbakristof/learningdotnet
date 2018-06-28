@@ -9,36 +9,28 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
-                <VisualState>
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="640"/>
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="Buttons.(RelativePanel.RightOf)" Value="ShapeType"/>
-                        <Setter Target="Buttons.(RelativePanel.Below)" Value=""/>
-                        <Setter Target="Colors.(RelativePanel.RightOf)" Value="Buttons"/>
-                        <Setter Target="Colors.(RelativePanel.Below)" Value=""/>
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
         <RelativePanel>
-            <StackPanel x:Name="ShapeType" Margin="20">
+            <StackPanel x:Name="ShapeType" Margin="20" BorderThickness="1" BorderBrush="Blue"
+                        RelativePanel.LeftOf="Colors" RelativePanel.AlignLeftWithPanel="True">
                 <ComboBox x:Name="Type" Header="Type of shape" Margin="0,24,0,0" PlaceholderText="shape type">
                     <ComboBoxItem Name="circle">Circle</ComboBoxItem>
                     <ComboBoxItem Name="polygon">Polygon</ComboBoxItem>
                 </ComboBox>
-                <TextBox x:Name="Title" Header="Shape title" Margin="0,24,0,0" HorizontalAlignment="Left" />
+                <TextBox x:Name="Title" Header="Shape title" Margin="0,24,0,0" />
             </StackPanel>
-            <StackPanel x:Name="Colors" Margin="20" RelativePanel.Below="ShapeType">
+            <StackPanel x:Name="Colors" Margin="20" RelativePanel.AlignRightWithPanel="True"
+                        BorderThickness="1" BorderBrush="Blue">
                 <ColorPicker x:Name="Color" Margin="0,24,0,0"/>
             </StackPanel>
-            <StackPanel x:Name="Buttons" Orientation="Horizontal" RelativePanel.Below="Colors">
-                <Button x:Name="CreateShapeButton" Content="Create shape" Margin="24" Click="CreateShapeButton_Click"/>
+            <StackPanel x:Name="Buttons" Orientation="Horizontal" RelativePanel.Below="ShapeType"
+                        RelativePanel.AlignRightWith="ShapeType"
+                        RelativePanel.AlignLeftWithPanel="True"
+                        Margin="20" BorderThickness="1" BorderBrush="Blue">
+                <Button x:Name="CreateShapeButton" Content="Create shape" Click="CreateShapeButton_Click"/>
             </StackPanel>
-            <Canvas x:Name="Canvas" MinWidth="100" MinHeight="100" Background="Gray" RelativePanel.Below="ShapeType" />
+            <Canvas x:Name="Canvas" Margin="20" MinWidth="100" MinHeight="100" Background="Gray"
+                    RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True"
+                    RelativePanel.LeftOf="Colors" RelativePanel.Below="Buttons"/>
         </RelativePanel>
     </Grid>
 </Page>
