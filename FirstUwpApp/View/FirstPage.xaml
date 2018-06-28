@@ -16,34 +16,29 @@
                         <AdaptiveTrigger MinWindowWidth="640"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="Associate.(RelativePanel.RightOf)" Value="Customer"/>
-                        <Setter Target="Associate.(RelativePanel.Below)" Value=""/>
+                        <Setter Target="Buttons.(RelativePanel.RightOf)" Value="ShapeType"/>
+                        <Setter Target="Buttons.(RelativePanel.Below)" Value=""/>
+                        <Setter Target="Colors.(RelativePanel.RightOf)" Value="Buttons"/>
+                        <Setter Target="Colors.(RelativePanel.Below)" Value=""/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         <RelativePanel>
-            <StackPanel x:Name="Customer" Margin="20">
-                <TextBox x:Name="CustomerName" Header="Customer Name" Margin="0,24,0,0" HorizontalAlignment="Left" />
-                <TextBox x:Name="Address" Header="Address" PlaceholderText="Address" Margin="0,24,0,0" HorizontalAlignment="Left" />
-                <TextBox x:Name="Address2" Margin="0,24,0,0" PlaceholderText="Address 2" HorizontalAlignment="Left" />
-                <RelativePanel>
-                    <TextBox x:Name="City" PlaceholderText="City" Margin="0,24,0,0" HorizontalAlignment="Left"/>
-                    <ComboBox x:Name="State" PlaceholderText="State" Margin="0,24,0,0" RelativePanel.RightOf="City">
-                        <ComboBoxItem Name="hu">Hungary</ComboBoxItem>
-                        <ComboBoxItem Name="de">Germany</ComboBoxItem>
-                    </ComboBox>
-                </RelativePanel>
+            <StackPanel x:Name="ShapeType" Margin="20">
+                <ComboBox x:Name="Type" Header="Type of shape" Margin="0,24,0,0" PlaceholderText="shape type">
+                    <ComboBoxItem Name="circle">Circle</ComboBoxItem>
+                    <ComboBoxItem Name="polygon">Polygon</ComboBoxItem>
+                </ComboBox>
+                <TextBox x:Name="Title" Header="Shape title" Margin="0,24,0,0" HorizontalAlignment="Left" />
             </StackPanel>
-            <StackPanel x:Name="Associate" Margin="20" RelativePanel.Below="Customer">
-                <TextBox x:Name="AssociateName" Header="Associate" Margin="0,24,0,0" HorizontalAlignment="Left"/>
-                <DatePicker x:Name="TargetInstallDate" Header="Target install date" Margin="0,24,0,0" HorizontalAlignment="Left"/>
-                <TimePicker x:Name="InstallTime" Header="Install time" Margin="0,24,0,0" HorizontalAlignment="Left"/>
+            <StackPanel x:Name="Colors" Margin="20" RelativePanel.Below="ShapeType">
+                <ColorPicker x:Name="Color" Margin="0,24,0,0"/>
             </StackPanel>
-            <StackPanel x:Name="Save" Orientation="Horizontal" RelativePanel.Below="Associate">
-                <Button Content="Save" Margin="24"/>
-                <Button Content="Cancel" Margin="24"/>
+            <StackPanel x:Name="Buttons" Orientation="Horizontal" RelativePanel.Below="Colors">
+                <Button x:Name="CreateShapeButton" Content="Create shape" Margin="24" Click="CreateShapeButton_Click"/>
             </StackPanel>
+            <Canvas x:Name="Canvas" MinWidth="100" MinHeight="100" Background="Gray" RelativePanel.Below="ShapeType" />
         </RelativePanel>
     </Grid>
 </Page>

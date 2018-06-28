@@ -1,2 +1,6 @@
 ﻿Used tutorial:
 https://docs.microsoft.com/hu-hu/windows/uwp/get-started/construct-form-learning-track
+
+
+Dependency properties, routed events and attached events
+https://softwareengineering.stackexchange.com/questions/130694/what-is-the-difference-between-routed-events-and-attached-events
