@@ -3,24 +3,29 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:FirstUwpApp.View"
+    xmlns:viewmodel="using:FirstUwpApp.ViewModel"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    <UserControl.Resources>
+        <viewmodel:ColorToBrushConverter x:Key="Color2Brush"/>
+    </UserControl.Resources>
+    
     <Grid>
         <RelativePanel>
             <StackPanel x:Name="ShapeType" Margin="20" BorderThickness="1" BorderBrush="Blue"
                         RelativePanel.LeftOf="Colors" RelativePanel.AlignLeftWithPanel="True"
                         Orientation="Horizontal">
-                <RadioButton x:Name="ShapeIsCircle" Content="Circle" Tag="Circle"/>
-                <RadioButton x:Name="ShapeIsRectangle" Content="Rectangle" Tag="Rectangle"/>
+                <RadioButton x:Name="ModifyShape" Content="Modify" Tag="Circle"/>
+                <RadioButton x:Name="AddCircle" Content="Add Circle" Tag="Circle"/>
+                <RadioButton x:Name="AddRectangle" Content="Add Rectangle" Tag="Rectangle"/>
                 <Slider x:Name="WidthSlider" Margin="20" Header="Width" Value="10" Minimum="10" Maximum="100"/>
                 <Slider x:Name="HeightSlider" Orientation="Vertical" Margin="20" Header="Height" Value="10" Minimum="10" Maximum="100"/>
             </StackPanel>
             <StackPanel x:Name="Colors" Margin="20" RelativePanel.AlignRightWithPanel="True"
                         BorderThickness="1" BorderBrush="Blue">
-                <ColorPicker x:Name="Color" Margin="0,24,0,0" Color="#CD5CFF"/>
+                <ColorPicker x:Name="ColorPicker" Margin="0,24,0,0" Color="#CD5CFF"/>
             </StackPanel>
             <Canvas x:Name="Canvas" Margin="20" MinWidth="100" MinHeight="100" Background="Gray"
                     RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True"
