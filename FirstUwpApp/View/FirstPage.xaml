@@ -14,22 +14,20 @@
     
     <Grid>
         <RelativePanel>
-            <StackPanel x:Name="ShapeType" Margin="20" BorderThickness="1" BorderBrush="Blue"
+            <StackPanel x:Name="Operation" Margin="20" BorderThickness="1" BorderBrush="Blue"
                         RelativePanel.LeftOf="Colors" RelativePanel.AlignLeftWithPanel="True"
                         Orientation="Horizontal">
                 <RadioButton x:Name="ModifyShape" Content="Modify" Tag="Circle"/>
                 <RadioButton x:Name="AddCircle" Content="Add Circle" Tag="Circle"/>
                 <RadioButton x:Name="AddRectangle" Content="Add Rectangle" Tag="Rectangle"/>
-                <Slider x:Name="WidthSlider" Margin="20" Header="Width" Value="10" Minimum="10" Maximum="100"/>
-                <Slider x:Name="HeightSlider" Orientation="Vertical" Margin="20" Header="Height" Value="10" Minimum="10" Maximum="100"/>
             </StackPanel>
             <StackPanel x:Name="Colors" Margin="20" RelativePanel.AlignRightWithPanel="True"
                         BorderThickness="1" BorderBrush="Blue">
-                <ColorPicker x:Name="ColorPicker" Margin="0,24,0,0" Color="#CD5CFF"/>
+                <local:ShapeConfigurator x:Name="ShapeConfig" Margin="0,24,0,0"/>
             </StackPanel>
             <Canvas x:Name="Canvas" Margin="20" MinWidth="100" MinHeight="100" Background="Gray"
                     RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True"
-                    RelativePanel.LeftOf="Colors" RelativePanel.Below="ShapeType"
+                    RelativePanel.LeftOf="Colors" RelativePanel.Below="Operation"
                     PointerPressed="Canvas_PointerPressed"/>
         </RelativePanel>
     </Grid>

@@ -17,50 +17,28 @@ namespace FirstUwpApp.View
             this.InitializeComponent();
         }
 
-        public ColorPicker ColorPickerToBindTo => this.ColorPicker;
-
         private async void Canvas_PointerPressed(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
         {
             if (!(this.ModifyShape.IsChecked ?? false))
             {
                 var p = e.GetCurrentPoint(this.Canvas);
-                CreateShapeAtLocation(p.Position.X, p.Position.Y);
+                Shape newShape = CreateShapeAtLocation(p.Position.X, p.Position.Y);
+                this.ShapeConfig.BindShapeForModification(newShape, true);
             }
             else
             {
-                await BindSelectedShapeForModification(e.OriginalSource);
+                Shape s = e.OriginalSource as Shape;
+                if (s==null)
+                {
+                    var dialog = new MessageDialog("A shape has to be selected to modify...");
+                    await dialog.ShowAsync();
+                    return;
+                }
+                this.ShapeConfig.BindShapeForModification(s);
             }
         }
 
-        Shape lastDataBindedShape = null;
-        private readonly IValueConverter converter = new ColorToBrushConverter();
-        private async Task BindSelectedShapeForModification(object originalSource)
-        {
-            if (!(originalSource is Shape))
-            {
-                var dialog = new MessageDialog("A shape has to be selected to modify...");
-                await dialog.ShowAsync();
-                return;
-            }
-
-            if (lastDataBindedShape != null)
-            {
-                lastDataBindedShape.ClearValue(Shape.FillProperty);
-                lastDataBindedShape.SetBinding(Shape.FillProperty, new Binding());
-                lastDataBindedShape.Fill = converter.Convert(this.ColorPicker.Color, null, null, null) as Brush;
-            }
-
-            Shape s = originalSource as Shape;
-
-            this.ColorPicker.Color = (s.Fill as SolidColorBrush).Color;
-
-            s.DataContext = this;
-            Binding bColor = new Binding() { Path = new PropertyPath("ColorPickerToBindTo.Color"), Converter = converter };
-            s.SetBinding(Shape.FillProperty, bColor);
-            lastDataBindedShape = s;
-        }
-
-        private void CreateShapeAtLocation(double x, double y)
+        private Shape CreateShapeAtLocation(double x, double y)
         {
             var s = CreateShape();
             if (s != null)
@@ -69,19 +47,20 @@ namespace FirstUwpApp.View
                 Canvas.SetLeft(s, x);
                 Canvas.SetTop(s, y);
             }
+            return s;
         }
 
         private Shape CreateShape()
         {
             Shape s = null;
             if (this.AddCircle.IsChecked ?? false)
-                s = new Ellipse() { Width = WidthSlider.Value, Height = HeightSlider.Value };
+                s = new Ellipse() { Width = 10, Height = 10 };
             else if (this.AddRectangle.IsChecked ?? false)
-                s = new Rectangle() { Width = WidthSlider.Value, Height = HeightSlider.Value };
+                s = new Rectangle() { Width = 10, Height = 10 };
             else
                 return null;
             s.Stroke = new SolidColorBrush(Windows.UI.Colors.Blue);
-            s.Fill = new SolidColorBrush(this.ColorPicker.Color);
+            s.Fill = new SolidColorBrush(Windows.UI.Colors.Black);
             return s;
         }
 
