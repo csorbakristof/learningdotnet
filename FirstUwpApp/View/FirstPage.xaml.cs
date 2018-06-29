@@ -1,4 +1,5 @@
 ﻿using System;
+using Windows.Foundation;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
@@ -15,11 +16,11 @@ namespace FirstUwpApp.View
 
         private async void Canvas_PointerPressed(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
         {
-            if (!(this.ModifyShape.IsChecked ?? false))
+            if (!(ModifyShape.IsChecked ?? false))
             {
-                var p = e.GetCurrentPoint(this.Canvas);
+                var p = e.GetCurrentPoint(Canvas);
                 Shape newShape = CreateShapeAtLocation(p.Position.X, p.Position.Y);
-                this.ShapeConfig.BindShapeForModification(newShape, true);
+                ShapeConfig.BindShapeForModification(newShape, true);
             }
             else
             {
@@ -49,9 +50,9 @@ namespace FirstUwpApp.View
         private Shape CreateShape()
         {
             Shape s = null;
-            if (this.AddCircle.IsChecked ?? false)
+            if (AddCircle.IsChecked ?? false)
                 s = new Ellipse() { Width = 10, Height = 10 };
-            else if (this.AddRectangle.IsChecked ?? false)
+            else if (AddRectangle.IsChecked ?? false)
                 s = new Rectangle() { Width = 10, Height = 10 };
             else
                 return null;
@@ -60,5 +61,27 @@ namespace FirstUwpApp.View
             return s;
         }
 
+
+        private Point? InitialOffsetOfMouseMove = null;
+        private void Canvas_PointerMoved(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+            var p = e.GetCurrentPoint(Canvas);
+            if (p.Properties.IsLeftButtonPressed)
+            {
+                if (e.OriginalSource is Shape s)
+                {
+                    if (InitialOffsetOfMouseMove == null)
+                        InitialOffsetOfMouseMove = new Point(
+                            Canvas.GetLeft(s) - p.Position.X,
+                            Canvas.GetTop(s) - p.Position.Y);
+                    Canvas.SetLeft(s, p.Position.X + (InitialOffsetOfMouseMove?.X ?? 0.0));
+                    Canvas.SetTop(s, p.Position.Y + (InitialOffsetOfMouseMove?.Y ?? 0.0));
+                }
+            }
+            else
+            {
+                InitialOffsetOfMouseMove = null;
+            }
+        }
     }
 }

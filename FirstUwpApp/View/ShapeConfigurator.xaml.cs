@@ -32,7 +32,7 @@ namespace FirstUwpApp.View
                 ClearLastBinding(Shape.FillProperty);
                 ClearLastBinding(Shape.WidthProperty);
                 ClearLastBinding(Shape.HeightProperty);
-                lastDataBindedShape.Fill = converter.Convert(this.ColorPicker.Color, null, null, null) as Brush;
+                lastDataBindedShape.Fill = converter.Convert(ColorPicker.Color, null, null, null) as Brush;
                 lastDataBindedShape.Width = WidthSlider.Value;
                 lastDataBindedShape.Height = HeightSlider.Value;
                 lastDataBindedShape.Stroke = originalStrokeBrush;
@@ -40,9 +40,9 @@ namespace FirstUwpApp.View
 
             if (!applyCurrentValues)
             {
-                this.ColorPicker.Color = (shape.Fill as SolidColorBrush).Color;
-                this.WidthSlider.Value = shape.Width;
-                this.HeightSlider.Value = shape.Height;
+                ColorPicker.Color = (shape.Fill as SolidColorBrush).Color;
+                WidthSlider.Value = shape.Width;
+                HeightSlider.Value = shape.Height;
             }
 
             shape.DataContext = this;

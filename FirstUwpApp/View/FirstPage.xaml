@@ -25,7 +25,8 @@
             <Canvas x:Name="Canvas" Margin="20" MinWidth="100" MinHeight="100" Background="Gray"
                     RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True"
                     RelativePanel.LeftOf="Colors" RelativePanel.Below="Operation"
-                    PointerPressed="Canvas_PointerPressed"/>
+                    PointerPressed="Canvas_PointerPressed"
+                    PointerMoved="Canvas_PointerMoved"/>
         </RelativePanel>
     </Grid>
 </Page>
