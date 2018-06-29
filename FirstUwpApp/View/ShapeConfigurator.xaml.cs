@@ -15,6 +15,9 @@ namespace FirstUwpApp.View
         }
 
         public ColorPicker ColorPickerToBindTo => this.ColorPicker;
+        public Slider WidthSliderToBindTo => this.WidthSlider;
+        public Slider HeightSliderToBindTo => this.HeightSlider;
+
 
         Shape lastDataBindedShape = null;
         private readonly IValueConverter converter = new ColorToBrushConverter();
@@ -23,21 +26,35 @@ namespace FirstUwpApp.View
 
             if (lastDataBindedShape != null)
             {
-                lastDataBindedShape.ClearValue(Shape.FillProperty);
-                lastDataBindedShape.SetBinding(Shape.FillProperty, new Binding());
+                ClearLastBinding(Shape.FillProperty);
+                ClearLastBinding(Shape.WidthProperty);
+                ClearLastBinding(Shape.HeightProperty);
                 lastDataBindedShape.Fill = converter.Convert(this.ColorPicker.Color, null, null, null) as Brush;
+                lastDataBindedShape.Width = WidthSlider.Value;
+                lastDataBindedShape.Height = HeightSlider.Value;
             }
 
             if (!applyCurrentValues)
             {
                 this.ColorPicker.Color = (shape.Fill as SolidColorBrush).Color;
+                this.WidthSlider.Value = shape.Width;
+                this.HeightSlider.Value = shape.Height;
             }
 
             shape.DataContext = this;
             Binding bColor = new Binding() { Path = new PropertyPath("ColorPickerToBindTo.Color"), Converter = converter };
             shape.SetBinding(Shape.FillProperty, bColor);
+            Binding bWidth = new Binding() { Path = new PropertyPath("WidthSliderToBindTo.Value") };
+            shape.SetBinding(Shape.WidthProperty, bWidth);
+            Binding bHeight = new Binding() { Path = new PropertyPath("HeightSliderToBindTo.Value") };
+            shape.SetBinding(Shape.HeightProperty, bHeight);
             lastDataBindedShape = shape;
         }
 
+        private void ClearLastBinding(DependencyProperty prop)
+        {
+            lastDataBindedShape.ClearValue(prop);
+            lastDataBindedShape.SetBinding(prop, new Binding());
+        }
     }
 }
