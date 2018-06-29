@@ -19,8 +19,10 @@ namespace FirstUwpApp.View
         public Slider HeightSliderToBindTo => this.HeightSlider;
 
 
-        Shape lastDataBindedShape = null;
+        private Shape lastDataBindedShape = null;
+        private Brush originalStrokeBrush = null;
         private readonly IValueConverter converter = new ColorToBrushConverter();
+        readonly Brush SelectionStrokeBrush = new SolidColorBrush(Windows.UI.Colors.Yellow);
         public void BindShapeForModification(Shape shape, bool applyCurrentValues=false)
         {
 
@@ -32,6 +34,7 @@ namespace FirstUwpApp.View
                 lastDataBindedShape.Fill = converter.Convert(this.ColorPicker.Color, null, null, null) as Brush;
                 lastDataBindedShape.Width = WidthSlider.Value;
                 lastDataBindedShape.Height = HeightSlider.Value;
+                lastDataBindedShape.Stroke = originalStrokeBrush;
             }
 
             if (!applyCurrentValues)
@@ -48,6 +51,8 @@ namespace FirstUwpApp.View
             shape.SetBinding(Shape.WidthProperty, bWidth);
             Binding bHeight = new Binding() { Path = new PropertyPath("HeightSliderToBindTo.Value") };
             shape.SetBinding(Shape.HeightProperty, bHeight);
+            originalStrokeBrush = shape.Stroke;
+            shape.Stroke = new SolidColorBrush(Windows.UI.Colors.Yellow);
             lastDataBindedShape = shape;
         }
 
