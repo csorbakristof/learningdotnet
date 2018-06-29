@@ -3,3 +3,10 @@
 /FirstUwpPrismApp/obj/*
 /FirstUwpApp/obj/*
 /FirstUwpApp/bin/x86/*
+/AppWithCommands/bin/*
+/AppWithCommands/obj/*
+/TestsForCommandsApp/bin/*
+/TestsForCommandsApp/obj/*
+/CameraImageProcessing/bin/*
+/CameraImageProcessing/obj/*
+/packages/*
