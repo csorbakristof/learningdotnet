@@ -11,11 +11,13 @@
 
     <Grid>
         <RelativePanel>
-            <Slider x:Name="WidthSlider" Margin="0,0,0,0" Header="Width" Value="10" Minimum="10" Maximum="100"
+            <Slider x:Name="WidthSlider" Margin="0,0,0,0" Header="Width"
+                    Value="50" Minimum="10" Maximum="100"
                     RelativePanel.AlignLeftWithPanel="True"
                     RelativePanel.AlignRightWithPanel="True"
                     RelativePanel.AlignTopWithPanel="True"/>
-            <Slider x:Name="HeightSlider" Orientation="Vertical" Margin="0,20,0,0" Header="Height" Value="10" Minimum="10" Maximum="100"
+            <Slider x:Name="HeightSlider" Orientation="Vertical" Margin="0,20,0,0"
+                    Header="Height" Value="50" Minimum="10" Maximum="100"
                     RelativePanel.Below="WidthSlider"
                     RelativePanel.AlignBottomWithPanel="True"
                     RelativePanel.AlignLeftWithPanel="True"/>
