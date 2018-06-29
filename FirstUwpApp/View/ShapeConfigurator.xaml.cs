@@ -1,4 +1,4 @@
-﻿using FirstUwpApp.ViewModel;
+﻿using FirstUwpApp.View.Converters;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
@@ -14,6 +14,7 @@ namespace FirstUwpApp.View
             this.InitializeComponent();
         }
 
+        // Note: these controls are private which does not allow data binding...
         public ColorPicker ColorPickerToBindTo => this.ColorPicker;
         public Slider WidthSliderToBindTo => this.WidthSlider;
         public Slider HeightSliderToBindTo => this.HeightSlider;
@@ -45,12 +46,12 @@ namespace FirstUwpApp.View
             }
 
             shape.DataContext = this;
-            Binding bColor = new Binding() { Path = new PropertyPath("ColorPickerToBindTo.Color"), Converter = converter };
-            shape.SetBinding(Shape.FillProperty, bColor);
-            Binding bWidth = new Binding() { Path = new PropertyPath("WidthSliderToBindTo.Value") };
-            shape.SetBinding(Shape.WidthProperty, bWidth);
-            Binding bHeight = new Binding() { Path = new PropertyPath("HeightSliderToBindTo.Value") };
-            shape.SetBinding(Shape.HeightProperty, bHeight);
+            shape.SetBinding(Shape.FillProperty,
+                new Binding() { Path = new PropertyPath("ColorPickerToBindTo.Color"), Converter = converter });
+            shape.SetBinding(Shape.WidthProperty,
+                new Binding() { Path = new PropertyPath("WidthSliderToBindTo.Value") });
+            shape.SetBinding(Shape.HeightProperty,
+                new Binding() { Path = new PropertyPath("HeightSliderToBindTo.Value") });
             originalStrokeBrush = shape.Stroke;
             shape.Stroke = new SolidColorBrush(Windows.UI.Colors.Yellow);
             lastDataBindedShape = shape;
