@@ -34,9 +34,10 @@ namespace AppWithCommands
             base.OnNavigatedTo(e);
             var textModel = new TextModel();
             var textViewModel = new TextViewModel(textModel);
-            this.myControl.ViewModel = textViewModel;
+            myControl.ViewModel = textViewModel;    // TODO: Itt miert nem kellett INotifyPropertyChanged a VM modositasakor?
             var cmd = new AddCommand(textModel);
             this.myControl.SetAddCommand(cmd);
+            myControl.PointerPressedCommand = new AddPositionCommand(textModel);
         }
     }
 }

@@ -15,7 +15,8 @@
                     RelativePanel.AlignTopWithPanel="True"
                     RelativePanel.AlignLeftWithPanel="True"
                     RelativePanel.AlignRightWithPanel="True"
-                    RelativePanel.Above="AddButton"/>
+                    RelativePanel.Above="AddButton"
+                    PointerPressed="Canvas_PointerPressed"/>
             <Button x:Name="AddButton" Content="Add"
                     RelativePanel.Above="TextBox"/>
             <TextBox x:Name="TextBox"

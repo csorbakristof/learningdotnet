@@ -1,26 +1,10 @@
 ﻿using AppWithCommands.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Windows.Input;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace AppWithCommands.View
 {
-    public sealed partial class MyControl : UserControl, INotifyPropertyChanged
+    public sealed partial class MyControl : UserControl
     {
         public MyControl()
         {
@@ -32,23 +16,16 @@ namespace AppWithCommands.View
             this.AddButton.Command = cmd;
         }
 
-        private TextViewModel textViewModel;
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public ICommand PointerPressedCommand { get; set; }
 
-        public TextViewModel ViewModel {
-            get
-            {
-                return this.textViewModel;
-            }
-            set
-            {
-                if (this.textViewModel != value)
-                {
-                    this.textViewModel = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ViewModel"));
-                }
-            }
+        public TextViewModel ViewModel { get; set; }
+
+        private void Canvas_PointerPressed(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+            PointerPressedCommand?.Execute(e.GetCurrentPoint(this.Canvas).Position);
+            // Note: innen kezdve a PointerPressedCommand-ot már lehet tesztelni. De ehhez minden eseménykezelő belsejét
+            //  valami Command pattern mögé kell rakni?
         }
     }
 }
