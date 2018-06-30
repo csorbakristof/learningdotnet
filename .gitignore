@@ -10,3 +10,5 @@
 /CameraImageProcessing/bin/*
 /CameraImageProcessing/obj/*
 /packages/*
+/TestingWithMoq/bin/*
+/TestingWithMoq/obj/*
