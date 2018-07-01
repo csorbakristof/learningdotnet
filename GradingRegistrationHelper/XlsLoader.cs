@@ -6,15 +6,15 @@ using Windows.Storage;
 
 namespace GradingRegistrationHelper
 {
-    class XlsLoader
+    public class XlsLoader
     {
         private List<Student> students = new List<Student>();
 
         public ITableReader Reader { get; set; }
 
-        internal List<Student> GetStudentList() => this.students;
+        public List<Student> GetStudentList() => this.students;
 
-        internal void Load(StorageFile gradesFile, StorageFile[] attendanceFiles, StorageFile advisorFile)
+        public void Load(StorageFile gradesFile, StorageFile[] attendanceFiles, StorageFile advisorFile)
         {
             students = LoadGrades(gradesFile).ToList();
             MergeStudents(LoadAdvisors(advisorFile));
@@ -57,13 +57,17 @@ namespace GradingRegistrationHelper
             return dict.Select(d => AdvisorEntryToStudent(d));
         }
 
+        static public readonly string GradingNameKey = "Hallgató neve";
+        static public readonly string GradingNCodeKey = "Hallgató NEPTUN";
+        static public readonly string GradingGradeKey = "Osztályzat";
+        static public readonly string GradingSubjectKey = "Tárgy NEPTUN";
         private Student GradeEntryToStudent(Dictionary<string, string> entry)
         {
             var student = new Student();
-            student.Name = entry["Hallgató neve"];
-            student.NeptunCode = entry["Hallgató NEPTUN"];
-            if (int.TryParse(entry["Osztályzat"], out int grade))
-                student.SetGrade(entry["Tárgy NEPTUN"], grade);
+            student.Name = entry[GradingNameKey];
+            student.NeptunCode = entry[GradingNCodeKey];
+            if (int.TryParse(entry[GradingGradeKey], out int grade))
+                student.SetGrade(entry[GradingSubjectKey], grade);
 
             return student;
         }
