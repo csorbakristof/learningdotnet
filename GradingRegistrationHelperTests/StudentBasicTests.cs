@@ -1,8 +1,8 @@
 ﻿using System;
+using GradingRegistrationHelper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ExcelHelper;
 
-namespace ExcelHelperTest
+namespace GradingRegistrationHelperTests
 {
     /// <summary>
     /// Summary description for StudentBasicTests

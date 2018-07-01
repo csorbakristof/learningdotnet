@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ExcelHelper
+namespace GradingRegistrationHelper
 {
     public class Student
     {
