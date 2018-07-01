@@ -144,5 +144,80 @@ namespace GradingRegistrationHelperTests
         }
         #endregion
 
+        #region Merging
+        const string Name1 = "Name1";
+        const string Name2 = "Name2";
+        const string NCode1 = "NCode1";
+        const string NCode2 = "NCode2";
+        const string Advisor1 = "Advisor1";
+        const string Advisor2 = "Advisor2";
+        const string OtherSubjectCode = "OtherSubjectCode";
+
+        [TestMethod]
+        public void Merging_NameAndNCode_Checks()
+        {
+            s.Name = Name1;
+            s.NeptunCode = NCode1;
+            var otherUnsetName = new Student() { NeptunCode = NCode1 };
+            var otherUnsetNCode = new Student() { Name=Name1 };
+            var otherNameMismatch = new Student() { Name=Name2, NeptunCode = NCode1 };
+            var otherNCodeMismatch = new Student() { Name=Name1, NeptunCode = NCode2 };
+            var otherUnset = new Student() { };
+            expectMergeException(s, otherUnsetName);
+            expectMergeException(s, otherUnsetNCode);
+            expectMergeException(s, otherNameMismatch);
+            expectMergeException(s, otherNCodeMismatch);
+            expectMergeException(s, otherUnset);
+            expectMergeException(otherUnset, s);
+        }
+
+        [TestMethod]
+        public void Merging_GradeAndGradedSubjectAndAdvisor_Checks()
+        {
+            s.Name = Name1;
+            s.NeptunCode = NCode1;
+            var oNewGrade = new Student() { Name = Name1, NeptunCode = NCode1, Grade = 5, GradedSubject = SubjectCode, Advisor =Advisor1 };
+            s.Merge(oNewGrade);
+            Assert.AreEqual(5, s.Grade);
+            Assert.AreEqual(SubjectCode, s.GradedSubject);
+            Assert.AreEqual(Advisor1, s.Advisor);
+
+            var oDiffGrade = new Student() { Name = Name1, NeptunCode = NCode1, Grade = 4 };
+            expectMergeException(s, oDiffGrade);
+            var oDiffGradedSubject = new Student() { Name = Name1, NeptunCode = NCode1, GradedSubject = WrongSubjectCode };
+            expectMergeException(s, oDiffGradedSubject);
+            var oDiffAdvisor = new Student() { Name = Name1, NeptunCode = NCode1, Advisor=Advisor2 };
+            expectMergeException(s, oDiffAdvisor);
+        }
+
+        [TestMethod]
+        public void Merging_Attendance()
+        {
+            s.Name = Name1;
+            s.NeptunCode = NCode1;
+            s.AddAttendance(SubjectCode);
+            var oNewAttendance = new Student() { Name = Name1, NeptunCode = NCode1 };
+            oNewAttendance.AddAttendance(SubjectCode);
+            oNewAttendance.AddAttendance(OtherSubjectCode);
+            s.Merge(oNewAttendance);
+            Assert.AreEqual(2, s.Attendances.Count);
+            Assert.AreEqual(OtherSubjectCode, s.Attendances[1]);
+        }
+
+        private void expectMergeException(Student s, Student o)
+        {
+            bool eThrown = false;
+            try
+            {
+                s.Merge(o);
+            }
+            catch(ArgumentException)
+            {
+                eThrown = true;
+            }
+            Assert.IsTrue(eThrown);
+        }
+
+        #endregion
     }
 }

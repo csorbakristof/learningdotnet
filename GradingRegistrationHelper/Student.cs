@@ -5,17 +5,19 @@ namespace GradingRegistrationHelper
 {
     public class Student
     {
-        private string GradedSubject = null;
-        private int? Grade = null;
-        private List<string> Attendances = new List<string>();
+
+        public string Name { get; set; } = null;
+        public string NeptunCode { get; set; } = null;
+        public string GradedSubject { get; set; } = null;
+        public int? Grade { get; set; } = null;
+        public string Advisor { get; set; }
+        public List<string> Attendances = new List<string>();
 
         public static readonly string GradingOK = "OK";
         public static readonly string SingleMismatchingAttendanceOK = "OK, subject mismatch: attended {0}, graded {1}";
-        public static string MultipleAttendedSubjectsThisOneUngradedOK
+        public static readonly string MultipleAttendedSubjectsThisOneUngradedOK
             = "OK, multiple attendances, graded {0} instead of this {1}.";
-        public static string Ungraded = "Ungraded, advisor: {0}";
-
-        public string Advisor { get; set; }
+        public static readonly string Ungraded = "Ungraded, advisor: {0}";
 
         public void SetGrade(string subject, int grade)
         {
@@ -61,6 +63,34 @@ namespace GradingRegistrationHelper
                     : string.Format(MultipleAttendedSubjectsThisOneUngradedOK,
                         GradedSubject, subject);
             }
+        }
+
+
+        public void Merge(Student other)
+        {
+            if (Name != other.Name)
+                throw new ArgumentException($"Cannot merge student entry, names mismatch: {Name} != {other.Name}");
+            if (NeptunCode != other.NeptunCode)
+                throw new ArgumentException($"Cannot merge student entry, neptun code mismatch: {NeptunCode} != {other.NeptunCode}");
+            if (GradedSubject != null && other.GradedSubject != null && GradedSubject != other.GradedSubject)
+                throw new ArgumentException($"Cannot merge student entry, different GradedSubject values: {GradedSubject} != {other.GradedSubject}");
+            if (Grade != null && other.Grade != null && Grade != other.Grade)
+                throw new ArgumentException($"Cannot merge student entry, different Grade values: {Grade} != {other.Grade}");
+            if (Advisor != null && other.Advisor != null && Advisor != other.Advisor)
+                throw new ArgumentException($"Cannot merge student entry, different Advisor values: {Advisor} != {other.Advisor}");
+
+            if (GradedSubject == null && other.GradedSubject != null)
+                GradedSubject = other.GradedSubject;
+
+            if (Grade == null && other.Grade != null)
+                Grade = other.Grade;
+
+            if (Advisor == null && other.Advisor != null)
+                Advisor = other.Advisor;
+
+            foreach (var att in other.Attendances)
+                if (!Attendances.Contains(att))
+                    Attendances.Add(att);
         }
     }
 }
