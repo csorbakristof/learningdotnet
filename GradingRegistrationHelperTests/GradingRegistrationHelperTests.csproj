@@ -136,6 +136,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ExcelReaderStandardLibrary\ExcelReaderStandardLibrary.csproj">
+      <Project>{155e0afa-2151-4563-8298-7105bb2dda19}</Project>
+      <Name>ExcelReaderStandardLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GradingRegistrationHelper\GradingRegistrationHelper.csproj">
       <Project>{1941749e-acca-4c56-bbd2-7070b7655664}</Project>
       <Name>GradingRegistrationHelper</Name>

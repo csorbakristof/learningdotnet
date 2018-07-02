@@ -1,8 +1,10 @@
 ﻿using ExcelReaderStandardLibrary;
 using System;
+using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 using Windows.Storage;
+using System.Text.RegularExpressions;
 
 namespace GradingRegistrationHelper
 {
@@ -10,7 +12,7 @@ namespace GradingRegistrationHelper
     {
         private List<Student> students = new List<Student>();
 
-        public ITableReader Reader { get; set; }
+        public ITableReader Reader { get; set; } = new Excel2Dict();
 
         public List<Student> GetStudentList() => this.students;
 
@@ -33,27 +35,39 @@ namespace GradingRegistrationHelper
             }
         }
 
-        private IEnumerable<Student> LoadGrades(StorageFile gradesFile)
+        protected virtual IEnumerable<Student> LoadGrades(StorageFile gradesFile)
         {
-            var dict = Reader.Read(gradesFile.Path, 0, 4);
+            var stream = gradesFile.OpenStreamForReadAsync().Result;
+            var dict = Reader.Read(stream, 0, 4);
             return dict.Select(d => GradeEntryToStudent(d));
         }
 
-        private IEnumerable<Student> LoadAttendances(StorageFile[] attendanceFiles)
+        protected virtual IEnumerable<Student> LoadAttendances(StorageFile[] attendanceFiles)
         {
             IEnumerable<Student> result = null;
             foreach (var f in attendanceFiles)
             {
-                var dict = Reader.Read(f.Path, 0, 1);
-                var enumerable = dict.Select(d => GradeEntryToStudent(d));
+                var subject = SubjectCodeFromFilename(f.Name);
+                var dict = Reader.Read(f.OpenStreamForReadAsync().Result, 0, 1);
+                var enumerable = dict.Select(d => AttendanceEntryToStudent(subject,d));
                 result = result == null ? enumerable : result.Concat(enumerable);
             }
             return result;
         }
 
-        private IEnumerable<Student> LoadAdvisors(StorageFile advisorFile)
+        public static string SubjectCodeFromFilename(string filename)
         {
-            var dict = Reader.Read(advisorFile.Path, 1, 1);
+            Regex r = new Regex(@"jegyimport_([A-Z0-9]+)_.+", RegexOptions.IgnoreCase);
+            Match m = r.Match(filename);
+            if (!m.Success)
+                throw new ArgumentException($"Cannot find subject code in filename {filename}");
+            var subjectcode = m.Groups[1].Value;
+            return subjectcode;
+        }
+
+        protected virtual IEnumerable<Student> LoadAdvisors(StorageFile advisorFile)
+        {
+            var dict = Reader.Read(advisorFile.OpenStreamForReadAsync().Result, 1, 1);
             return dict.Select(d => AdvisorEntryToStudent(d));
         }
 
@@ -72,15 +86,20 @@ namespace GradingRegistrationHelper
             return student;
         }
 
+        static public readonly string AdvisorNameKey = "Hallgató neve";
+        static public readonly string AdvisorNCodeKey = "Hallg. nept";
+        static public readonly string AdvisorAdvisorKey = "Konzulens";
         private Student AdvisorEntryToStudent(Dictionary<string, string> entry)
         {
             var student = new Student();
-            student.Name = entry["Hallgató neve"];
-            student.NeptunCode = entry["Hallg. nept"];
-            student.Advisor = entry["Konzulens"];
+            student.Name = entry[AdvisorNameKey];
+            student.NeptunCode = entry[AdvisorNCodeKey];
+            student.Advisor = entry[AdvisorAdvisorKey];
             return student;
         }
 
+        static public readonly string AttendanceNameKey = "Név";
+        static public readonly string AttendanceNCodeKey = "Neptun kód";
         private Student AttendanceEntryToStudent(string SubjectCode, Dictionary<string, string> entry)
         {
             var student = new Student();

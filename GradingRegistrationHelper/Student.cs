@@ -76,8 +76,6 @@ namespace GradingRegistrationHelper
                 throw new ArgumentException($"Cannot merge student entry, different GradedSubject values: {GradedSubject} != {other.GradedSubject}");
             if (Grade != null && other.Grade != null && Grade != other.Grade)
                 throw new ArgumentException($"Cannot merge student entry, different Grade values: {Grade} != {other.Grade}");
-            if (Advisor != null && other.Advisor != null && Advisor != other.Advisor)
-                throw new ArgumentException($"Cannot merge student entry, different Advisor values: {Advisor} != {other.Advisor}");
 
             if (GradedSubject == null && other.GradedSubject != null)
                 GradedSubject = other.GradedSubject;
@@ -87,6 +85,8 @@ namespace GradingRegistrationHelper
 
             if (Advisor == null && other.Advisor != null)
                 Advisor = other.Advisor;
+            if (Advisor != null && other.Advisor != null && Advisor != other.Advisor)
+                Advisor += "," + other.Advisor;
 
             foreach (var att in other.Attendances)
                 if (!Attendances.Contains(att))

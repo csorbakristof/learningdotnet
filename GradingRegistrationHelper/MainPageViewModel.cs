@@ -19,13 +19,6 @@ namespace GradingRegistrationHelper
 
             var loader = new XlsLoader();   // Builder design pattern
             var files = await dir.GetFilesAsync();
-
-            // Temp test, won't work either...
-            var stream = new StreamReader(files[0].Path);
-            stream.ReadLine();
-            stream.Close();
-
-            // Original continuation...
             var gradesFile = files.Where(s => s.Name.StartsWith("tema-osztalyzatok")).Single();
             var attandanceFiles = files.Where(s => s.Name.StartsWith("jegyimport")).ToArray();
             var advisorFile = files.Where(s => s.Name.StartsWith("Terheles_")).Single();

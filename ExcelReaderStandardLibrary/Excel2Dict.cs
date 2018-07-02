@@ -1,6 +1,7 @@
 ﻿using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,9 +10,9 @@ namespace ExcelReaderStandardLibrary
 {
     public class Excel2Dict : ITableReader
     {
-        public List<Dictionary<string, string>> Read(string filename, int worksheetIndex, int headerRowIndex)
+        public List<Dictionary<string, string>> Read(Stream inputStream, int worksheetIndex, int headerRowIndex)
         {
-            using (ExcelPackage xls = new ExcelPackage(new System.IO.FileInfo(filename)))
+            using (ExcelPackage xls = new ExcelPackage(inputStream))
             {
                 ExcelWorksheet ws = xls.Workbook.Worksheets[worksheetIndex];
                 var headers = LoadHeadersFromFirstRow(ws, headerRowIndex);
@@ -45,9 +46,9 @@ namespace ExcelReaderStandardLibrary
                     break;
 
                 Dictionary<string, string> currentRow = new Dictionary<string, string>();
-                for (int col=1; col<headers.Count; col++)
+                for (int col=0; col<headers.Count; col++)
                 {
-                    string cellContent = ws.Cells[row, col].Text;
+                    string cellContent = ws.Cells[row, col+1].Text; // Node: 1-based column indexing
                     currentRow.Add(headers[col], cellContent);
                 }
                 res.Add(currentRow);

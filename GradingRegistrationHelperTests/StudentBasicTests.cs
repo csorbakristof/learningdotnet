@@ -187,7 +187,8 @@ namespace GradingRegistrationHelperTests
             var oDiffGradedSubject = new Student() { Name = Name1, NeptunCode = NCode1, GradedSubject = WrongSubjectCode };
             expectMergeException(s, oDiffGradedSubject);
             var oDiffAdvisor = new Student() { Name = Name1, NeptunCode = NCode1, Advisor=Advisor2 };
-            expectMergeException(s, oDiffAdvisor);
+            s.Merge(oDiffAdvisor);
+            Assert.AreEqual($"{Advisor1},{Advisor2}", s.Advisor);
         }
 
         [TestMethod]
