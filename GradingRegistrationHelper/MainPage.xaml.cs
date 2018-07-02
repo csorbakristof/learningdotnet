@@ -22,7 +22,7 @@ namespace GradingRegistrationHelper
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        MainPageViewModel vm = new MainPageViewModel();
+        public MainPageViewModel ViewModel { get; set; } = new MainPageViewModel();
 
         public MainPage()
         {
@@ -35,7 +35,7 @@ namespace GradingRegistrationHelper
             picker.FileTypeFilter.Add("*"); // Hack to make it work... https://wpdev.uservoice.com/forums/110705-universal-windows-platform/suggestions/15655473-the-folderpicker-class-does-not-work-without-addin
             var dir = await picker.PickSingleFolderAsync();
             if (dir != null)
-                vm.LoadFromFolder(dir);
+                ViewModel.LoadFromFolder(dir);
         }
     }
 }

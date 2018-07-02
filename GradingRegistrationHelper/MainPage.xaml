@@ -9,9 +9,18 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <StackPanel>
-            <Button Content="Open dir..." Click="Button_Click" />
-        </StackPanel>
+        <RelativePanel>
+            <Button x:Name="OpenDirBtn" Content="Open dir..." Click="Button_Click"
+                    RelativePanel.AlignLeftWithPanel="True"
+                    RelativePanel.AlignRightWithPanel="True"/>
+            <CheckBox x:Name="GenOutput" Content="Generate output files" IsChecked="{x:Bind Mode=TwoWay, Path=ViewModel.GenerateOutputFiles}"
+                      RelativePanel.Below="OpenDirBtn"/>
+            <ListView x:Name="ExportedEntries" ItemsSource="{x:Bind Mode=TwoWay, Path=ViewModel.ExportEntries}"
+                      RelativePanel.Below="GenOutput"
+                      RelativePanel.AlignBottomWithPanel="True"
+                      RelativePanel.AlignLeftWithPanel="True"
+                      RelativePanel.AlignRightWithPanel="True"/>
+        </RelativePanel>
 
     </Grid>
 </Page>

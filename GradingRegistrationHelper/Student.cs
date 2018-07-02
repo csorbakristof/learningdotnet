@@ -52,7 +52,7 @@ namespace GradingRegistrationHelper
             // Now we are sure they attended the asked subject.
             if (Attendances.Count == 1)
             {
-                return (subject == GradedSubject)
+                return (subject.StartsWith($"BME{GradedSubject}_"))
                     ? GradingOK
                     : string.Format(SingleMismatchingAttendanceOK, subject, GradedSubject);
             }

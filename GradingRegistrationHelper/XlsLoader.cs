@@ -10,7 +10,7 @@ namespace GradingRegistrationHelper
 {
     public class XlsLoader
     {
-        private List<Student> students = new List<Student>();
+        protected List<Student> students = new List<Student>();
 
         public ITableReader Reader { get; set; } = new Excel2Dict();
 
@@ -57,7 +57,7 @@ namespace GradingRegistrationHelper
 
         public static string SubjectCodeFromFilename(string filename)
         {
-            Regex r = new Regex(@"jegyimport_([A-Z0-9]+)_.+", RegexOptions.IgnoreCase);
+            Regex r = new Regex(@"jegyimport_([A-Z0-9]+_[A-Za-z]+)_.+", RegexOptions.IgnoreCase);
             Match m = r.Match(filename);
             if (!m.Success)
                 throw new ArgumentException($"Cannot find subject code in filename {filename}");

@@ -17,11 +17,11 @@ namespace GradingRegistrationHelperTests
         [TestMethod]
         public void TestSubjectCodeFromFilename()
         {
-            Assert.AreEqual("BMEVIAUM963", XlsLoader.SubjectCodeFromFilename("jegyimport_BMEVIAUM963_Gy_2017_18_1.xlsx"));
-            Assert.AreEqual("BMEVIAUMT00", XlsLoader.SubjectCodeFromFilename("jegyimport_BMEVIAUMT00_Gy_2017_18_1.xlsx"));
-            Assert.AreEqual("BMEVIAUAL00", XlsLoader.SubjectCodeFromFilename("jegyimport_BMEVIAUAL00_AL_2017_18_1.xlsx"));
-            Assert.AreEqual("BMEVIAUAT00", XlsLoader.SubjectCodeFromFilename("jegyimport_BMEVIAUAT00_AGY_2017_18_1.xlsx"));
-            Assert.AreEqual("BMEVIAUAL00", XlsLoader.SubjectCodeFromFilename("jegyimport_BMEVIAUAL00_L_2017_18_1.xlsx"));
+            Assert.AreEqual("BMEVIAUM963_Gy", XlsLoader.SubjectCodeFromFilename("jegyimport_BMEVIAUM963_Gy_2017_18_1.xlsx"));
+            Assert.AreEqual("BMEVIAUMT00_Gy", XlsLoader.SubjectCodeFromFilename("jegyimport_BMEVIAUMT00_Gy_2017_18_1.xlsx"));
+            Assert.AreEqual("BMEVIAUAL00_AL", XlsLoader.SubjectCodeFromFilename("jegyimport_BMEVIAUAL00_AL_2017_18_1.xlsx"));
+            Assert.AreEqual("BMEVIAUAT00_AGY", XlsLoader.SubjectCodeFromFilename("jegyimport_BMEVIAUAT00_AGY_2017_18_1.xlsx"));
+            Assert.AreEqual("BMEVIAUAL00_L", XlsLoader.SubjectCodeFromFilename("jegyimport_BMEVIAUAL00_L_2017_18_1.xlsx"));
         }
 
         const string Name1 = "Name1";
@@ -60,6 +60,8 @@ namespace GradingRegistrationHelperTests
 
         class TestXlsLoader : XlsLoader
         {
+            public List<Student> Students => base.students;
+
             public TestXlsLoader() : base()
             {
                 base.Reader = new FakeReader();
