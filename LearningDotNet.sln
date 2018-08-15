@@ -19,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradingRegistrationHelper",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradingRegistrationHelperTests", "GradingRegistrationHelperTests\GradingRegistrationHelperTests.csproj", "{B341D339-FC16-41E1-A1D8-3BDB68D6C34E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelReaderStandardLibrary", "ExcelReaderStandardLibrary\ExcelReaderStandardLibrary.csproj", "{155E0AFA-2151-4563-8298-7105BB2DDA19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExcelReaderStandardLibrary", "ExcelReaderStandardLibrary\ExcelReaderStandardLibrary.csproj", "{155E0AFA-2151-4563-8298-7105BB2DDA19}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
