@@ -26,3 +26,5 @@
 /ExcelReaderStandardLibrary/bin/*
 /PeerReviewResultDistributionHelperTests/bin/*
 /PeerReviewResultDistributionHelperTests/obj/*
+/PeerReviewCommonLib/obj/*
+/PeerReviewCommonLib/bin/*

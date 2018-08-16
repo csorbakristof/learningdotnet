@@ -4,20 +4,20 @@ using System.Linq;
 using System.Text;
 using Windows.ApplicationModel.Email;
 
-namespace PeerReviewResultDistributionHelperTests
+namespace PeerReviewCommonLib
 {
-    internal class Review
+    public class Review
     {
         public Review()
         {
         }
 
-        public string Text { get; internal set; }
-        public int OverallScore { get; internal set; }
-        public string ReviewerNeptunCode { get; internal set; }
-        public string PresenterEmail { get; internal set; }
+        public string Text { get; set; }
+        public int OverallScore { get; set; }
+        public string ReviewerNeptunCode { get; set; }
+        public string PresenterEmail { get; set; }
 
-        internal EmailMessage GetPresenterEmail()
+        public EmailMessage GetPresenterEmail()
         {
             var e = new EmailMessage();
             e.To.Add(new EmailRecipient(PresenterEmail));
@@ -25,7 +25,7 @@ namespace PeerReviewResultDistributionHelperTests
             return e;
         }
 
-        internal EmailMessage GetAdvisorEmail(ISupervisionLookup lookup)
+        public EmailMessage GetAdvisorEmail(ISupervisionLookup lookup)
         {
             var e = new EmailMessage();
             var s = lookup.GetSupervision(ReviewerNeptunCode);
@@ -37,7 +37,7 @@ namespace PeerReviewResultDistributionHelperTests
             return e;
         }
 
-        internal static EmailMessage GetCollectedPresenterEmail(string presenterEmail, List<Review> allReviews, SupervisionLookupBase supervisionLookup)
+        public static EmailMessage GetCollectedPresenterEmail(string presenterEmail, List<Review> allReviews, SupervisionLookupBase supervisionLookup)
         {
             var reviews = allReviews.Where(r => r.PresenterEmail == presenterEmail);
             var e = new EmailMessage();
@@ -51,7 +51,7 @@ namespace PeerReviewResultDistributionHelperTests
             return e;
         }
 
-        internal static EmailMessage GetCollectedAdvisorEmail(string advisorEmail, List<Review> reviews, SupervisionLookupBase s)
+        public static EmailMessage GetCollectedAdvisorEmail(string advisorEmail, List<Review> reviews, SupervisionLookupBase s)
         {
             var e = new EmailMessage();
             e.To.Add(new EmailRecipient(advisorEmail));

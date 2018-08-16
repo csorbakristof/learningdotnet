@@ -1,6 +1,6 @@
-﻿namespace PeerReviewResultDistributionHelperTests
+﻿namespace PeerReviewCommonLib
 {
-    class Supervision
+    public class Supervision
     {
         public string StudentName { get; set; }
         public string StudentNeptunCode { get; set; }

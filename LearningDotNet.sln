@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExcelReaderStandardLibrary"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeerReviewResultDistributionHelperTests", "PeerReviewResultDistributionHelperTests\PeerReviewResultDistributionHelperTests.csproj", "{D067B60A-0D07-47D7-AEDA-8230DB745AEE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeerReviewCommonLib", "PeerReviewCommonLib\PeerReviewCommonLib.csproj", "{381E26D7-3D41-478F-878E-B973F961D938}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -187,6 +189,22 @@ Global
 		{D067B60A-0D07-47D7-AEDA-8230DB745AEE}.Release|x86.ActiveCfg = Release|x86
 		{D067B60A-0D07-47D7-AEDA-8230DB745AEE}.Release|x86.Build.0 = Release|x86
 		{D067B60A-0D07-47D7-AEDA-8230DB745AEE}.Release|x86.Deploy.0 = Release|x86
+		{381E26D7-3D41-478F-878E-B973F961D938}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{381E26D7-3D41-478F-878E-B973F961D938}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{381E26D7-3D41-478F-878E-B973F961D938}.Debug|ARM.ActiveCfg = Debug|ARM
+		{381E26D7-3D41-478F-878E-B973F961D938}.Debug|ARM.Build.0 = Debug|ARM
+		{381E26D7-3D41-478F-878E-B973F961D938}.Debug|x64.ActiveCfg = Debug|x64
+		{381E26D7-3D41-478F-878E-B973F961D938}.Debug|x64.Build.0 = Debug|x64
+		{381E26D7-3D41-478F-878E-B973F961D938}.Debug|x86.ActiveCfg = Debug|x86
+		{381E26D7-3D41-478F-878E-B973F961D938}.Debug|x86.Build.0 = Debug|x86
+		{381E26D7-3D41-478F-878E-B973F961D938}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{381E26D7-3D41-478F-878E-B973F961D938}.Release|Any CPU.Build.0 = Release|Any CPU
+		{381E26D7-3D41-478F-878E-B973F961D938}.Release|ARM.ActiveCfg = Release|ARM
+		{381E26D7-3D41-478F-878E-B973F961D938}.Release|ARM.Build.0 = Release|ARM
+		{381E26D7-3D41-478F-878E-B973F961D938}.Release|x64.ActiveCfg = Release|x64
+		{381E26D7-3D41-478F-878E-B973F961D938}.Release|x64.Build.0 = Release|x64
+		{381E26D7-3D41-478F-878E-B973F961D938}.Release|x86.ActiveCfg = Release|x86
+		{381E26D7-3D41-478F-878E-B973F961D938}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -197,6 +215,7 @@ Global
 		{B341D339-FC16-41E1-A1D8-3BDB68D6C34E} = {009549A2-2BD8-4329-ADD3-FF889003F801}
 		{155E0AFA-2151-4563-8298-7105BB2DDA19} = {009549A2-2BD8-4329-ADD3-FF889003F801}
 		{D067B60A-0D07-47D7-AEDA-8230DB745AEE} = {009549A2-2BD8-4329-ADD3-FF889003F801}
+		{381E26D7-3D41-478F-878E-B973F961D938} = {009549A2-2BD8-4329-ADD3-FF889003F801}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {991FE759-7974-46C1-913E-3D432C757746}

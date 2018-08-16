@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace PeerReviewResultDistributionHelperTests
+namespace PeerReviewCommonLib
 {
-    internal class SupervisionLookupBase : ISupervisionLookup
+    public class SupervisionLookupBase : ISupervisionLookup
     {
 
         private Dictionary<string, Supervision> supervisions = new Dictionary<string, Supervision>();
@@ -13,12 +13,12 @@ namespace PeerReviewResultDistributionHelperTests
             return supervisions[studentNeptunCode];
         }
 
-        internal void Add(string reviewerNeptunCode, Supervision s)
+        public void Add(string reviewerNeptunCode, Supervision s)
         {
             supervisions.Add(reviewerNeptunCode, s);
         }
 
-        internal string GetAdvisorName(string advisorEmail)
+        public string GetAdvisorName(string advisorEmail)
         {
             return supervisions.Values.
                 First(s => s.AdvisorEmail == advisorEmail).AdvisorName;

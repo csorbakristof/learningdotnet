@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PeerReviewCommonLib;
 using Windows.ApplicationModel.Email;
 
 namespace PeerReviewResultDistributionHelperTests
@@ -103,12 +104,7 @@ namespace PeerReviewResultDistributionHelperTests
 
             var m = r.GetAdvisorEmail(lookup);
             Assert.AreEqual(testCases[0].AdvisorEmail, m.To[0].Address);
-            //Assert.IsFalse(m.Body.Contains(testCases[0].AdvisorEmail));
-            //Assert.IsTrue(m.Body.Contains(testCases[0].ReviewText));
-            //Assert.IsTrue(m.Body.Contains($"pontszám: {testCases[0].ReviewOverallScore}"));
-            //Assert.IsTrue(m.Body.Contains(testCases[0].ReviewerName));
-            //Assert.IsTrue(m.Body.Contains(testCases[0].ReviewerNeptunCode));
-            //Assert.IsTrue(m.Body.Contains(testCases[0].AdvisorName));
+            AssertEmailBodyForAdvisor(m, 0);
         }
 
         Supervision CreateTestSupervision(TestCase testCase)
