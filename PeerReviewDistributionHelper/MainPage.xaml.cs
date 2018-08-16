@@ -23,20 +23,18 @@ namespace PeerReviewDistributionHelper
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MainPage : Page, INotifyPropertyChanged
+    public sealed partial class MainPage : Page
     {
-        private ObservableCollection<Review> _reviews = new ObservableCollection<Review>();
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public MainPage()
         {
-            Reviews.Add(new Review());
+            Reviews = new ObservableCollection<Review>();
+            Supervisions = new ObservableCollection<Supervision>();
             this.InitializeComponent();
         }
 
         private void LoadSupervisionButton_Click(object sender, RoutedEventArgs e)
         {
+            Supervisions.Add(new Supervision());
 
         }
 
@@ -45,17 +43,7 @@ namespace PeerReviewDistributionHelper
             Reviews.Add(new Review());
         }
 
-        public ObservableCollection<Review> Reviews
-        {
-            get => _reviews;
-            set
-            {
-                if (_reviews != value)
-                {
-                    _reviews = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Reviews"));
-                }
-            }
-        }
+        public ObservableCollection<Review> Reviews { get; set; }
+        public ObservableCollection<Supervision> Supervisions { get; set; }
     }
 }
