@@ -32,31 +32,31 @@ namespace GradingRegistrationHelperTests
         const string Subject1 = "Subject1";
         const string Subject2 = "Subject2";
 
-        //[TestMethod]
-        //public void TestGradeImport()
-        //{
-        //    var t = new TestXlsLoader();
-        //    t.Reader.AddGrading(Name1, NCode1, Subject1, 5);
-        //    var res = t.LoadGrades().ToArray();
-        //    Assert.AreEqual(1, res.Length);
-        //    Assert.AreEqual(Name1, res[0].Name);
-        //    Assert.AreEqual(NCode1, res[0].NeptunCode);
-        //    Assert.AreEqual(Subject1, res[0].GradedSubject);
-        //    Assert.AreEqual(5, res[0].Grade);
-        //}
+        [TestMethod]
+        public void TestGradeImport()
+        {
+            var t = new TestXlsLoader();
+            t.Reader.AddGrading(Name1, NCode1, Subject1, 5);
+            var res = t.LoadGrades().ToArray();
+            Assert.AreEqual(1, res.Length);
+            Assert.AreEqual(Name1, res[0].Name);
+            Assert.AreEqual(NCode1, res[0].NeptunCode);
+            Assert.AreEqual(Subject1, res[0].GradedSubject);
+            Assert.AreEqual(5, res[0].Grade);
+        }
 
-        //[TestMethod]
-        //public void TestAdvisorImport()
-        //{
-        //    var t = new TestXlsLoader();
-        //    t.Reader.AddAdvisor(Name1, NCode1, Advisor);
-        //    t.Reader.AddAdvisor(Name2, NCode2, Advisor);
-        //    var res = t.LoadAdvisors().ToArray();
-        //    Assert.AreEqual(2, res.Length);
-        //    Assert.AreEqual(Name1, res[0].Name);
-        //    Assert.AreEqual(NCode1, res[0].NeptunCode);
-        //    Assert.AreEqual(Advisor, res[0].Advisor);
-        //}
+        [TestMethod]
+        public void TestAdvisorImport()
+        {
+            var t = new TestXlsLoader();
+            t.Reader.AddAdvisor(Name1, NCode1, Advisor);
+            t.Reader.AddAdvisor(Name2, NCode2, Advisor);
+            var res = t.LoadAdvisors().ToArray();
+            Assert.AreEqual(2, res.Length);
+            Assert.AreEqual(Name1, res[0].Name);
+            Assert.AreEqual(NCode1, res[0].NeptunCode);
+            Assert.AreEqual(Advisor, res[0].Advisor);
+        }
 
         class TestXlsLoader : XlsLoader
         {

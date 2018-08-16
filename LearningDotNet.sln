@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GradingRegistrationHelperTe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExcelReaderStandardLibrary", "ExcelReaderStandardLibrary\ExcelReaderStandardLibrary.csproj", "{155E0AFA-2151-4563-8298-7105BB2DDA19}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeerReviewResultDistributionHelperTests", "PeerReviewResultDistributionHelperTests\PeerReviewResultDistributionHelperTests.csproj", "{D067B60A-0D07-47D7-AEDA-8230DB745AEE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -165,6 +167,26 @@ Global
 		{155E0AFA-2151-4563-8298-7105BB2DDA19}.Release|x64.Build.0 = Release|Any CPU
 		{155E0AFA-2151-4563-8298-7105BB2DDA19}.Release|x86.ActiveCfg = Release|Any CPU
 		{155E0AFA-2151-4563-8298-7105BB2DDA19}.Release|x86.Build.0 = Release|Any CPU
+		{D067B60A-0D07-47D7-AEDA-8230DB745AEE}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{D067B60A-0D07-47D7-AEDA-8230DB745AEE}.Debug|ARM.ActiveCfg = Debug|ARM
+		{D067B60A-0D07-47D7-AEDA-8230DB745AEE}.Debug|ARM.Build.0 = Debug|ARM
+		{D067B60A-0D07-47D7-AEDA-8230DB745AEE}.Debug|ARM.Deploy.0 = Debug|ARM
+		{D067B60A-0D07-47D7-AEDA-8230DB745AEE}.Debug|x64.ActiveCfg = Debug|x64
+		{D067B60A-0D07-47D7-AEDA-8230DB745AEE}.Debug|x64.Build.0 = Debug|x64
+		{D067B60A-0D07-47D7-AEDA-8230DB745AEE}.Debug|x64.Deploy.0 = Debug|x64
+		{D067B60A-0D07-47D7-AEDA-8230DB745AEE}.Debug|x86.ActiveCfg = Debug|x86
+		{D067B60A-0D07-47D7-AEDA-8230DB745AEE}.Debug|x86.Build.0 = Debug|x86
+		{D067B60A-0D07-47D7-AEDA-8230DB745AEE}.Debug|x86.Deploy.0 = Debug|x86
+		{D067B60A-0D07-47D7-AEDA-8230DB745AEE}.Release|Any CPU.ActiveCfg = Release|x86
+		{D067B60A-0D07-47D7-AEDA-8230DB745AEE}.Release|ARM.ActiveCfg = Release|ARM
+		{D067B60A-0D07-47D7-AEDA-8230DB745AEE}.Release|ARM.Build.0 = Release|ARM
+		{D067B60A-0D07-47D7-AEDA-8230DB745AEE}.Release|ARM.Deploy.0 = Release|ARM
+		{D067B60A-0D07-47D7-AEDA-8230DB745AEE}.Release|x64.ActiveCfg = Release|x64
+		{D067B60A-0D07-47D7-AEDA-8230DB745AEE}.Release|x64.Build.0 = Release|x64
+		{D067B60A-0D07-47D7-AEDA-8230DB745AEE}.Release|x64.Deploy.0 = Release|x64
+		{D067B60A-0D07-47D7-AEDA-8230DB745AEE}.Release|x86.ActiveCfg = Release|x86
+		{D067B60A-0D07-47D7-AEDA-8230DB745AEE}.Release|x86.Build.0 = Release|x86
+		{D067B60A-0D07-47D7-AEDA-8230DB745AEE}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -174,6 +196,7 @@ Global
 		{1941749E-ACCA-4C56-BBD2-7070B7655664} = {009549A2-2BD8-4329-ADD3-FF889003F801}
 		{B341D339-FC16-41E1-A1D8-3BDB68D6C34E} = {009549A2-2BD8-4329-ADD3-FF889003F801}
 		{155E0AFA-2151-4563-8298-7105BB2DDA19} = {009549A2-2BD8-4329-ADD3-FF889003F801}
+		{D067B60A-0D07-47D7-AEDA-8230DB745AEE} = {009549A2-2BD8-4329-ADD3-FF889003F801}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {991FE759-7974-46C1-913E-3D432C757746}

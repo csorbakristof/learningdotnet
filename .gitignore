@@ -24,3 +24,5 @@
 /GradingRegistrationHelper/obj/*
 /ExcelReaderStandardLibrary/obj/*
 /ExcelReaderStandardLibrary/bin/*
+/PeerReviewResultDistributionHelperTests/bin/*
+/PeerReviewResultDistributionHelperTests/obj/*

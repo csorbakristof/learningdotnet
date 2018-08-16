@@ -65,7 +65,6 @@ namespace GradingRegistrationHelper
             }
         }
 
-
         public void Merge(Student other)
         {
             if (Name != other.Name)
