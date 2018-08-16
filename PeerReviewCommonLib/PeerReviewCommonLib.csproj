@@ -106,12 +106,9 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ISupervisionLookup.cs" />
     <Compile Include="Processor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Review.cs" />
-    <Compile Include="Supervision.cs" />
-    <Compile Include="SupervisionLookupBase.cs" />
     <EmbeddedResource Include="Properties\PeerReviewCommonLib.rd.xml" />
   </ItemGroup>
   <ItemGroup>

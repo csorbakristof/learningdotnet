@@ -38,9 +38,9 @@ namespace PeerReviewDistributionHelper
             EventsListBox.Items.Add("Reviews loaded. Next, match advisors.");
         }
 
-        private void MatchReviewerAdvisorsButton_Click(object sender, RoutedEventArgs e)
+        private void CollectReviewDataButton_Click(object sender, RoutedEventArgs e)
         {
-            processor.MatchAdvisorsToReviewers();
+            processor.CollectReviewData();
             EventsListBox.Items.Add("Advisors matched to reviewers. Next, generate e-mails.");
         }
 
