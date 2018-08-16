@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Windows.ApplicationModel.Email;
 
 namespace PeerReviewResultDistributionHelperTests
 {
@@ -102,12 +103,12 @@ namespace PeerReviewResultDistributionHelperTests
 
             var m = r.GetAdvisorEmail(lookup);
             Assert.AreEqual(testCases[0].AdvisorEmail, m.To[0].Address);
-            Assert.IsFalse(m.Body.Contains(testCases[0].AdvisorEmail));
-            Assert.IsTrue(m.Body.Contains(testCases[0].ReviewText));
-            Assert.IsTrue(m.Body.Contains($"pontszám: {testCases[0].ReviewOverallScore}"));
-            Assert.IsTrue(m.Body.Contains(testCases[0].ReviewerName));
-            Assert.IsTrue(m.Body.Contains(testCases[0].ReviewerNeptunCode));
-            Assert.IsTrue(m.Body.Contains(testCases[0].AdvisorName));
+            //Assert.IsFalse(m.Body.Contains(testCases[0].AdvisorEmail));
+            //Assert.IsTrue(m.Body.Contains(testCases[0].ReviewText));
+            //Assert.IsTrue(m.Body.Contains($"pontszám: {testCases[0].ReviewOverallScore}"));
+            //Assert.IsTrue(m.Body.Contains(testCases[0].ReviewerName));
+            //Assert.IsTrue(m.Body.Contains(testCases[0].ReviewerNeptunCode));
+            //Assert.IsTrue(m.Body.Contains(testCases[0].AdvisorName));
         }
 
         Supervision CreateTestSupervision(TestCase testCase)
@@ -132,7 +133,6 @@ namespace PeerReviewResultDistributionHelperTests
         public void MultipleReviewsForSamePresenter_EmailCollectsReviews()
         {
             (var reviews, var s) = CreateFullTestCase();
-
             var mail = Review.GetCollectedPresenterEmail(testCases[0].PresenterEmail, reviews, s);
             // Note: test cases 0 and 1 have same presenter
             Assert.AreEqual(testCases[0].PresenterEmail, mail.To[0].Address);
@@ -159,6 +159,27 @@ namespace PeerReviewResultDistributionHelperTests
             Assert.IsFalse(mail.Body.Contains(testCases[idx].AdvisorName));
             Assert.IsFalse(mail.Body.Contains(testCases[idx].ReviewerName));
             Assert.IsFalse(mail.Body.Contains(testCases[idx].ReviewerNeptunCode));
+        }
+
+        [TestMethod]
+        public void MultipleReviewsByStudentsOfSameAdvisor_EmailCollectsReviews()
+        {
+            (var reviews, var s) = CreateFullTestCase();
+            var mail = Review.GetCollectedAdvisorEmail(testCases[0].AdvisorEmail, reviews, s);
+            // Note: test cases 0 and 2 have same advisor
+            Assert.AreEqual(testCases[0].AdvisorEmail, mail.To[0].Address);
+            foreach (int idx in new int[] { 0, 2 })
+                AssertEmailBodyForAdvisor(mail, idx);
+        }
+
+        private void AssertEmailBodyForAdvisor(EmailMessage mail, int idx)
+        {
+            Assert.IsFalse(mail.Body.Contains(testCases[idx].AdvisorEmail));
+            Assert.IsTrue(mail.Body.Contains(testCases[idx].ReviewText));
+            Assert.IsTrue(mail.Body.Contains($"pontszám: {testCases[idx].ReviewOverallScore}"));
+            Assert.IsTrue(mail.Body.Contains(testCases[idx].ReviewerName));
+            Assert.IsTrue(mail.Body.Contains(testCases[idx].ReviewerNeptunCode));
+            Assert.IsTrue(mail.Body.Contains(testCases[idx].AdvisorName));
         }
     }
 }

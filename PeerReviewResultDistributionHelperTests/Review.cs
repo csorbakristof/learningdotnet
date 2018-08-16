@@ -50,5 +50,26 @@ namespace PeerReviewResultDistributionHelperTests
             e.Body = sb.ToString();
             return e;
         }
+
+        internal static EmailMessage GetCollectedAdvisorEmail(string advisorEmail, List<Review> reviews, SupervisionLookupBase s)
+        {
+            var e = new EmailMessage();
+            e.To.Add(new EmailRecipient(advisorEmail));
+            var advisorName = s.GetAdvisorName(advisorEmail);
+            StringBuilder sb = new StringBuilder();
+            sb.Append($"Kedves {advisorName}!\n\n" +
+                "Hallgatóid az alábbi értékeléseket adták le a beszámolókra:\n\n");
+            foreach (var r in reviews)
+            {
+                var supervision = s.GetSupervision(r.ReviewerNeptunCode);
+                if (supervision.AdvisorEmail == advisorEmail)
+                {
+                    sb.Append($"--- Értékelő hallgató: {supervision.StudentName}({supervision.StudentNeptunCode}, {supervision.StudentEmail}) írta:\n\n");
+                    sb.Append($"- összesített pontszám: {r.OverallScore}\n\n{r.Text}\n\n");
+                }
+            }
+            e.Body = sb.ToString();
+            return e;
+        }
     }
 }

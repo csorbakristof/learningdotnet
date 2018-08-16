@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace PeerReviewResultDistributionHelperTests
 {
@@ -15,6 +16,12 @@ namespace PeerReviewResultDistributionHelperTests
         internal void Add(string reviewerNeptunCode, Supervision s)
         {
             supervisions.Add(reviewerNeptunCode, s);
+        }
+
+        internal string GetAdvisorName(string advisorEmail)
+        {
+            return supervisions.Values.
+                First(s => s.AdvisorEmail == advisorEmail).AdvisorName;
         }
     }
 }
