@@ -35,6 +35,7 @@ namespace PeerReviewCommonLib
             var e = new EmailMessage();
             var s = lookup.GetSupervision(ReviewerNeptunCode);
             e.To.Add(new EmailRecipient(s.AdvisorEmail));
+            e.Subject = "Saját hallgatók által leadott beszámoló értékelések";
             e.Body = $"Kedves {s.AdvisorName}!\n\n"
                 + $"Értékelő hallgató: {s.StudentName}({s.StudentNeptunCode}, {s.StudentEmail}) írta:\n\n"
                 + $"Összesített pontszám: {OverallScore}\n\n"
@@ -47,6 +48,7 @@ namespace PeerReviewCommonLib
             var reviews = allReviews.Where(r => r.PresenterEmail == presenterEmail);
             var e = new EmailMessage();
             e.To.Add(new EmailRecipient(presenterEmail));
+            e.Subject = "Beszámolóra kapott értékelések";
             StringBuilder sb = new StringBuilder();
             sb.Append("Kedves Hallgatónk!\n\n" +
                 "A beszámolódhoz az alábbi értékelések gyűltek össze:\n\n");

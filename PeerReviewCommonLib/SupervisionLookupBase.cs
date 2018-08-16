@@ -13,9 +13,10 @@ namespace PeerReviewCommonLib
             return supervisions[studentNeptunCode];
         }
 
-        public void Add(string reviewerNeptunCode, Supervision s)
+        public void AddIfNew(string reviewerNeptunCode, Supervision s)
         {
-            supervisions.Add(reviewerNeptunCode, s);
+            if (!supervisions.ContainsKey(reviewerNeptunCode))
+                supervisions.Add(reviewerNeptunCode, s);
         }
 
         public string GetAdvisorName(string advisorEmail)

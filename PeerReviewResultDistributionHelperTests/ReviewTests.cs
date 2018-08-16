@@ -88,7 +88,7 @@ namespace PeerReviewResultDistributionHelperTests
         {
             var lookup = new SupervisionLookupBase();
             var s = CreateTestSupervision(testCases[0]);
-            lookup.Add(testCases[0].ReviewerNeptunCode, s);
+            lookup.AddIfNew(testCases[0].ReviewerNeptunCode, s);
             var result = lookup.GetSupervision(testCases[0].ReviewerNeptunCode);
             Assert.AreSame(s, result);
         }
@@ -100,7 +100,7 @@ namespace PeerReviewResultDistributionHelperTests
 
             var lookup = new SupervisionLookupBase();
             var s = CreateTestSupervision(testCases[0]);
-            lookup.Add(testCases[0].ReviewerNeptunCode, s);
+            lookup.AddIfNew(testCases[0].ReviewerNeptunCode, s);
 
             var m = r.GetAdvisorEmail(lookup);
             Assert.AreEqual(testCases[0].AdvisorEmail, m.To[0].Address);
@@ -120,8 +120,8 @@ namespace PeerReviewResultDistributionHelperTests
         public void SupervisionLookupBaseWithMultipleEntries()
         {
             var lookup = new SupervisionLookupBase();
-            lookup.Add(testCases[0].ReviewerNeptunCode, CreateTestSupervision(testCases[0]));
-            lookup.Add(testCases[1].ReviewerNeptunCode, CreateTestSupervision(testCases[1]));
+            lookup.AddIfNew(testCases[0].ReviewerNeptunCode, CreateTestSupervision(testCases[0]));
+            lookup.AddIfNew(testCases[1].ReviewerNeptunCode, CreateTestSupervision(testCases[1]));
             Assert.AreEqual(testCases[0].AdvisorName, lookup.GetSupervision(testCases[0].ReviewerNeptunCode).AdvisorName);
         }
 
@@ -143,7 +143,7 @@ namespace PeerReviewResultDistributionHelperTests
             foreach (var tc in testCases)
             {
                 reviews.Add(CreateTestReview(tc));
-                s.Add(tc.ReviewerNeptunCode, CreateTestSupervision(tc));
+                s.AddIfNew(tc.ReviewerNeptunCode, CreateTestSupervision(tc));
             }
             return (reviews, s);
         }

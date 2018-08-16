@@ -8,6 +8,7 @@ using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using System.Threading.Tasks;
+using System.Linq;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -18,7 +19,6 @@ namespace PeerReviewDistributionHelper
     /// </summary>
     public sealed partial class MainPage : Page
     {
-
         public ObservableCollection<Review> Reviews { get; set; }
         public ObservableCollection<Supervision> Supervisions { get; set; }
 
@@ -28,8 +28,6 @@ namespace PeerReviewDistributionHelper
             Supervisions = new ObservableCollection<Supervision>();
             this.InitializeComponent();
         }
-
-
 
         #region Loading supervisions
         private async void LoadSupervisionButton_Click(object sender, RoutedEventArgs e)
@@ -94,5 +92,24 @@ namespace PeerReviewDistributionHelper
             return reader.Read(stream, worksheetIndex, headerRowIndex);
         }
         #endregion
+
+        private async void CreateStudentEmailsButton_Click(object sender, RoutedEventArgs e)
+        {
+            var allPresenterEmails = Reviews.Select(r => r.PresenterEmail).Distinct();
+            var supervisionLookup = new SupervisionLookupBase();
+            foreach (var s in Supervisions)
+                supervisionLookup.AddIfNew(s.StudentNeptunCode, s);
+            var allReviews = Reviews.ToList();
+            foreach (var presenterEmail in allPresenterEmails)
+            {
+                var email = Review.GetCollectedPresenterEmail(presenterEmail, allReviews, supervisionLookup);
+                await Windows.ApplicationModel.Email.EmailManager.ShowComposeNewEmailAsync(email);
+            }
+        }
+
+        private void CreateAdvisorEmailsButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

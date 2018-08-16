@@ -10,14 +10,18 @@
 
     <Grid>
         <RelativePanel>
-            <Button x:Name="LoadSupervisionButton"
-                Content="LoadSupervision" Click="LoadSupervisionButton_Click"
-                    RelativePanel.AlignTopWithPanel="True"/>
-            <Button x:Name="LoadReviewsButton"
-                Content="LoadReviews" Click="LoadReviewsButton_Click"
-                    RelativePanel.Below="LoadSupervisionButton"/>
+            <StackPanel x:Name="Buttons" RelativePanel.AlignTopWithPanel="True">
+                <Button x:Name="LoadSupervisionButton"
+                    Content="LoadSupervision" Click="LoadSupervisionButton_Click"/>
+                <Button x:Name="LoadReviewsButton"
+                    Content="LoadReviews" Click="LoadReviewsButton_Click"/>
+                <Button x:Name="CreateStudentEmailsButton"
+                    Content="CreateStudentEmails" Click="CreateStudentEmailsButton_Click"/>
+                <Button x:Name="CreateAdvisorEmailsButton"
+                    Content="CreateAdvisorEmails" Click="CreateAdvisorEmailsButton_Click"/>
+            </StackPanel>
             <TextBlock x:Name="textReviews" Text="Reviews:"
-                       RelativePanel.Below="LoadReviewsButton"/>
+                       RelativePanel.Below="Buttons"/>
             <ListBox x:Name="ReviewsListbox"
                      Height="200"
                     RelativePanel.Below="textReviews"
