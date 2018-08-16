@@ -1,0 +1,37 @@
+﻿<Page
+    x:Class="PeerReviewDistributionHelper.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PeerReviewDistributionHelper"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <RelativePanel>
+            <Button x:Name="LoadSupervisionButton"
+                Content="LoadSupervision" Click="LoadSupervisionButton_Click"
+                    RelativePanel.AlignTopWithPanel="True"/>
+            <Button x:Name="LoadReviewsButton"
+                Content="LoadReviews" Click="LoadReviewsButton_Click"
+                    RelativePanel.Below="LoadSupervisionButton"/>
+            <TextBlock x:Name="textReviews" Text="Reviews:"
+                       RelativePanel.Below="LoadReviewsButton"/>
+            <ListBox x:Name="ReviewsListbox"
+                     Height="200"
+                    RelativePanel.Below="textReviews"
+                    RelativePanel.AlignLeftWithPanel="True"
+                    RelativePanel.AlignRightWithPanel="True"
+                     ItemsSource="{x:Bind Mode=TwoWay, Path=Reviews}"/>
+            <TextBlock x:Name="textSupervisions" Text="Supervisions:"
+                       RelativePanel.Below="ReviewsListbox"/>
+            <ListBox x:Name="SupervisionsListbox"
+                     Height="200"
+                     RelativePanel.Below="textSupervisions"
+                     RelativePanel.AlignLeftWithPanel="True"
+                     RelativePanel.AlignRightWithPanel="True"/>
+        </RelativePanel>
+
+    </Grid>
+</Page>

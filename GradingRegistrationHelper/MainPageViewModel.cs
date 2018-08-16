@@ -17,10 +17,7 @@ namespace GradingRegistrationHelper
         private List<XlsExporter.Entry> exportEntries = new List<XlsExporter.Entry>();
         public List<XlsExporter.Entry> ExportEntries
         {
-            get
-            {
-                return this.exportEntries;
-            }
+            get => this.exportEntries;
             set
             {
                 if (this.exportEntries != value)
@@ -36,10 +33,7 @@ namespace GradingRegistrationHelper
         private bool generateOutputFiles = true;
         public bool GenerateOutputFiles
         {
-            get
-            {
-                return this.generateOutputFiles;
-            }
+            get => this.generateOutputFiles;
             set
             {
                 if (this.generateOutputFiles != value)

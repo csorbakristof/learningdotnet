@@ -28,3 +28,5 @@
 /PeerReviewResultDistributionHelperTests/obj/*
 /PeerReviewCommonLib/obj/*
 /PeerReviewCommonLib/bin/*
+/PeerReviewDistributionHelper/bin/*
+/PeerReviewDistributionHelper/obj/*
