@@ -1,6 +1,6 @@
 ﻿namespace PeerReviewCommonLib
 {
-    public interface ISupervisionLookup
+    internal interface ISupervisionLookup
     {
         Supervision GetSupervision(string StudentNeptunCode);
     }

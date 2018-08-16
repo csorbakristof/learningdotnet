@@ -1,6 +1,6 @@
 ﻿namespace PeerReviewCommonLib
 {
-    public class Supervision
+    internal class Supervision
     {
         public string StudentName { get; set; }
         public string StudentNeptunCode { get; set; }

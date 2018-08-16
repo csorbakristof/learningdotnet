@@ -6,7 +6,7 @@ using Windows.ApplicationModel.Email;
 
 namespace PeerReviewCommonLib
 {
-    public class Review
+    internal class Review
     {
         public Review()
         {
@@ -17,9 +17,16 @@ namespace PeerReviewCommonLib
         public string ReviewerNeptunCode { get; set; }
         public string PresenterEmail { get; set; }
 
+        public Supervision ReviewersSupervision { get; set; }
+
         public override string ToString()
         {
             return $"{ReviewerNeptunCode}->{PresenterEmail} : {OverallScore}, {Text}";
+        }
+
+        public void ConnectReviewersSupervision(ISupervisionLookup lookup)
+        {
+            ReviewersSupervision = lookup.GetSupervision(ReviewerNeptunCode);
         }
 
         public EmailMessage GetPresenterEmail()
@@ -30,20 +37,19 @@ namespace PeerReviewCommonLib
             return e;
         }
 
-        public EmailMessage GetAdvisorEmail(ISupervisionLookup lookup)
+        public EmailMessage GetAdvisorEmail()
         {
             var e = new EmailMessage();
-            var s = lookup.GetSupervision(ReviewerNeptunCode);
-            e.To.Add(new EmailRecipient(s.AdvisorEmail));
+            e.To.Add(new EmailRecipient(ReviewersSupervision.AdvisorEmail));
             e.Subject = "Saját hallgatók által leadott beszámoló értékelések";
-            e.Body = $"Kedves {s.AdvisorName}!\n\n"
-                + $"Értékelő hallgató: {s.StudentName}({s.StudentNeptunCode}, {s.StudentEmail}) írta:\n\n"
+            e.Body = $"Kedves {ReviewersSupervision.AdvisorName}!\n\n"
+                + $"Értékelő hallgató: {ReviewersSupervision.StudentName}({ReviewersSupervision.StudentNeptunCode}, {ReviewersSupervision.StudentEmail}) írta:\n\n"
                 + $"Összesített pontszám: {OverallScore}\n\n"
                 + $"{Text}\n\n";
             return e;
         }
 
-        public static EmailMessage GetCollectedPresenterEmail(string presenterEmail, List<Review> allReviews, SupervisionLookupBase supervisionLookup)
+        public static EmailMessage GetCollectedPresenterEmail(string presenterEmail, List<Review> allReviews)
         {
             var reviews = allReviews.Where(r => r.PresenterEmail == presenterEmail);
             var e = new EmailMessage();
@@ -58,20 +64,19 @@ namespace PeerReviewCommonLib
             return e;
         }
 
-        public static EmailMessage GetCollectedAdvisorEmail(string advisorEmail, List<Review> reviews, SupervisionLookupBase s)
+        public static EmailMessage GetCollectedAdvisorEmail(string advisorEmail, string advisorName, List<Review> reviews)
         {
             var e = new EmailMessage();
             e.To.Add(new EmailRecipient(advisorEmail));
-            var advisorName = s.GetAdvisorName(advisorEmail);
             StringBuilder sb = new StringBuilder();
             sb.Append($"Kedves {advisorName}!\n\n" +
                 "Hallgatóid az alábbi értékeléseket adták le a beszámolókra:\n\n");
             foreach (var r in reviews)
             {
-                var supervision = s.GetSupervision(r.ReviewerNeptunCode);
-                if (supervision.AdvisorEmail == advisorEmail)
+                var supervision = r.ReviewersSupervision;
+                if (r.ReviewersSupervision.AdvisorEmail == advisorEmail)
                 {
-                    sb.Append($"--- Értékelő hallgató: {supervision.StudentName}({supervision.StudentNeptunCode}, {supervision.StudentEmail}) írta:\n\n");
+                    sb.Append($"--- Értékelő hallgató: {r.ReviewersSupervision.StudentName}({r.ReviewersSupervision.StudentNeptunCode}, {r.ReviewersSupervision.StudentEmail}) írta:\n\n");
                     sb.Append($"- összesített pontszám: {r.OverallScore}\n\n{r.Text}\n\n");
                 }
             }

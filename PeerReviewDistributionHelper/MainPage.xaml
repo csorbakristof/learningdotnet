@@ -15,27 +15,20 @@
                     Content="LoadSupervision" Click="LoadSupervisionButton_Click"/>
                 <Button x:Name="LoadReviewsButton"
                     Content="LoadReviews" Click="LoadReviewsButton_Click"/>
+                <Button x:Name="MatchReviewerAdvisorsButton"
+                    Content="MatchReviewerAdvisors" Click="MatchReviewerAdvisorsButton_Click"/>
                 <Button x:Name="CreateStudentEmailsButton"
                     Content="CreateStudentEmails" Click="CreateStudentEmailsButton_Click"/>
                 <Button x:Name="CreateAdvisorEmailsButton"
                     Content="CreateAdvisorEmails" Click="CreateAdvisorEmailsButton_Click"/>
             </StackPanel>
-            <TextBlock x:Name="textReviews" Text="Reviews:"
+            <TextBlock x:Name="textEvents" Text="Events:"
                        RelativePanel.Below="Buttons"/>
-            <ListBox x:Name="ReviewsListbox"
-                     Height="200"
-                    RelativePanel.Below="textReviews"
+            <ListBox x:Name="EventsListBox"
+                    RelativePanel.Below="textEvents"
                     RelativePanel.AlignLeftWithPanel="True"
                     RelativePanel.AlignRightWithPanel="True"
-                     ItemsSource="{x:Bind Mode=TwoWay, Path=Reviews}"/>
-            <TextBlock x:Name="textSupervisions" Text="Supervisions:"
-                       RelativePanel.Below="ReviewsListbox"/>
-            <ListBox x:Name="SupervisionsListbox"
-                     Height="200"
-                     RelativePanel.Below="textSupervisions"
-                     RelativePanel.AlignLeftWithPanel="True"
-                     RelativePanel.AlignRightWithPanel="True"
-                     ItemsSource="{x:Bind Mode=TwoWay, Path=Supervisions}"/>
+                    RelativePanel.AlignBottomWithPanel="True"/>
         </RelativePanel>
 
     </Grid>

@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace PeerReviewCommonLib
 {
-    public class SupervisionLookupBase : ISupervisionLookup
+    internal class SupervisionLookupBase : ISupervisionLookup
     {
 
         private Dictionary<string, Supervision> supervisions = new Dictionary<string, Supervision>();
