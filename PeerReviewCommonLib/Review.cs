@@ -17,6 +17,11 @@ namespace PeerReviewCommonLib
         public string ReviewerNeptunCode { get; set; }
         public string PresenterEmail { get; set; }
 
+        public override string ToString()
+        {
+            return $"{ReviewerNeptunCode}->{PresenterEmail} : {OverallScore}, {Text}";
+        }
+
         public EmailMessage GetPresenterEmail()
         {
             var e = new EmailMessage();

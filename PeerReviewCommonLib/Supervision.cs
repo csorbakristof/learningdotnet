@@ -8,5 +8,9 @@
         public string AdvisorName { get; set; }
         public string AdvisorEmail { get; set; }
 
+        public override string ToString()
+        {
+            return $"{StudentName}({StudentNeptunCode}, {StudentEmail})-{AdvisorName}({AdvisorEmail})";
+        }
     }
 }

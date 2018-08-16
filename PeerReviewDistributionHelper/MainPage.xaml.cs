@@ -1,20 +1,13 @@
-﻿using PeerReviewCommonLib;
-using System;
+﻿using ExcelReaderStandardLibrary;
+using PeerReviewCommonLib;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using System;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
+using System.Threading.Tasks;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -25,6 +18,10 @@ namespace PeerReviewDistributionHelper
     /// </summary>
     public sealed partial class MainPage : Page
     {
+
+        public ObservableCollection<Review> Reviews { get; set; }
+        public ObservableCollection<Supervision> Supervisions { get; set; }
+
         public MainPage()
         {
             Reviews = new ObservableCollection<Review>();
@@ -32,18 +29,70 @@ namespace PeerReviewDistributionHelper
             this.InitializeComponent();
         }
 
-        private void LoadSupervisionButton_Click(object sender, RoutedEventArgs e)
-        {
-            Supervisions.Add(new Supervision());
 
+
+        #region Loading supervisions
+        private async void LoadSupervisionButton_Click(object sender, RoutedEventArgs e)
+        {
+            AddSupervisions(await ChooseFileAndLoadIntoDictionaryList(1,1));
         }
 
-        private void LoadReviewsButton_Click(object sender, RoutedEventArgs e)
+        private void AddSupervisions(List<Dictionary<string, string>> dictList)
         {
-            Reviews.Add(new Review());
+            foreach (var d in dictList)
+            {
+                Supervisions.Add(new Supervision()
+                {
+                    AdvisorName = d["Konzulens"],
+                    StudentName = d["Hallgató neve"],
+                    StudentNeptunCode = d["Hallg. nept"],
+                    StudentEmail = null
+                });
+            }
+        }
+        #endregion
+
+        #region Loading reviews
+        private async void LoadReviewsButton_Click(object sender, RoutedEventArgs e)
+        {
+            AddReviews(await ChooseFileAndLoadIntoDictionaryList(0,1));
         }
 
-        public ObservableCollection<Review> Reviews { get; set; }
-        public ObservableCollection<Supervision> Supervisions { get; set; }
+        private void AddReviews(List<Dictionary<string, string>> dictList)
+        {
+            foreach (var d in dictList)
+            {
+                Reviews.Add(new Review()
+                {
+                    PresenterEmail = d["PresenterEmail"],
+                    ReviewerNeptunCode = d["ReviewerNKod"],
+                    OverallScore = int.Parse(d["Score"]),
+                    Text = d["Text"]
+                });
+            }
+        }
+        #endregion
+
+        #region Xls picking and loading helpers
+        private async Task<List<Dictionary<string,string>>> ChooseFileAndLoadIntoDictionaryList(int worksheetIndex, int headerRowIndex)
+        {
+            var file = await PickFileToOpen();
+            return LoadXlsIntoDictionaryList(file, worksheetIndex, headerRowIndex);
+        }
+
+        private async Task<StorageFile> PickFileToOpen()
+        {
+            var fop = new Windows.Storage.Pickers.FileOpenPicker();
+            fop.FileTypeFilter.Add("*");
+            return await fop.PickSingleFileAsync();
+        }
+
+        private List<Dictionary<string, string>> LoadXlsIntoDictionaryList(StorageFile file, int worksheetIndex, int headerRowIndex)
+        {
+            var stream = file.OpenStreamForReadAsync().Result;
+            var reader = new Excel2Dict();
+            return reader.Read(stream, worksheetIndex, headerRowIndex);
+        }
+        #endregion
     }
 }
